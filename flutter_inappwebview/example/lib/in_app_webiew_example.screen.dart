@@ -116,11 +116,11 @@ class _InAppWebViewExampleScreenState extends State<InAppWebViewExampleScreen> {
                 InAppWebView(
                   key: webViewKey,
                   webViewEnvironment: webViewEnvironment,
-                  initialUrlRequest:
-                      URLRequest(url: WebUri('https://flutter.dev')),
+                  // initialUrlRequest:
+                  //     URLRequest(url: WebUri('https://flutter.dev')),
                   // initialUrlRequest:
                   // URLRequest(url: WebUri(Uri.base.toString().replaceFirst("/#/", "/") + 'page.html')),
-                  // initialFile: "assets/index.html",
+                  initialFile: "assets/index.html",
                   initialUserScripts: UnmodifiableListView<UserScript>([]),
                   initialSettings: settings,
                   contextMenu: contextMenu,
@@ -165,6 +165,8 @@ class _InAppWebViewExampleScreenState extends State<InAppWebViewExampleScreen> {
                     return NavigationActionPolicy.ALLOW;
                   },
                   onLoadStop: (controller, url) async {
+                    print('onLoadStop');
+                    controller.evaluateJavascript(source: 'console.log("test test")');
                     pullToRefreshController?.endRefreshing();
                     setState(() {
                       this.url = url.toString();
